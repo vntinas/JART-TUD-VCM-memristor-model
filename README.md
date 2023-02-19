@@ -1,4 +1,4 @@
-# JART-TUD VCM memristor_model
+# JART-TUD VCM memristor model
 
 ## Fitting parameter values for I<sub>M</sub>
 
