@@ -1,6 +1,6 @@
 # JART-TUD VCM memristor_model
 
-## Fitting parameter values for I<sup>M</sup>
+## Fitting parameter values for I<sub>M</sub>
 
 ### Applied Voltage V<sub>M</sub>>0
 <table>
