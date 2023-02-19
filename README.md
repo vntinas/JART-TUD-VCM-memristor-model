@@ -1,1 +1,1 @@
-# JART-TUD_VCM_memristor_model
+# JART-TUD VCM memristor_model
