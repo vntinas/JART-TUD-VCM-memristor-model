@@ -190,8 +190,12 @@
                 p<sub>4,1</sub>=1 <br>
                 p<sub>4,2</sub>=1
             </td>
-            <td></td>
-            <td></td>
+            <td>
+                D<sub>p<sub>4,1,r</sub></sub>=1 
+            </td>
+            <td>
+                D<sub>p<sub>4,1,l</sub></sub>=1 
+            </td>
         </tr>
         <tr>
             <td>p<sub>5</sub></td>
