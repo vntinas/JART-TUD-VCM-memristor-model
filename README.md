@@ -210,8 +210,7 @@
                 D<sub>p<sub>5,2,r<sup>2</sup></sub></sub>=1
             </td>
             <td>
-                D<sub>p<sub>5,1,l</sub></sub>=1 <br>
-                D<sub>p<sub>5,2,l</sub></sub>=1 
+                D<sub>p<sub>5,1,l</sub></sub>=1
             </td>
         </tr>
         <tr>
