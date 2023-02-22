@@ -176,25 +176,25 @@
             </td>
             <td>
                 D<sub>p<sub>3,0,r</sub></sub>=1.2536e-01 <br>
-                D<sub>p<sub>3,1,r</sub></sub>=-6.5498e-02
+                D<sub>p<sub>3,1,r</sub></sub>=6.5498e-02
             </td>
             <td>
                 D<sub>p<sub>3,0,l</sub></sub>=2.5983e-01 <br>
-                D<sub>p<sub>3,1,l</sub></sub>=-8.5666e-02
+                D<sub>p<sub>3,1,l</sub></sub>=8.5666e-02
             </td>
         </tr>
         <tr>
             <td>p<sub>4</sub></td>
             <td>
                 p<sub>4,0</sub>=2.5890e+03 <br>
-                p<sub>4,1</sub>=2.9537e+00 <br>
+                p<sub>4,1</sub>=-2.9537e+00 <br>
                 p<sub>4,2</sub>=-5.4031e-01
             </td>
             <td>
-                D<sub>p<sub>4,1,r</sub></sub>=-8.2522e-02
+                D<sub>p<sub>4,1,r</sub></sub>=8.2522e-02
             </td>
             <td>
-                D<sub>p<sub>4,1,l</sub></sub>=7.2255e-02
+                D<sub>p<sub>4,1,l</sub></sub>=-7.2255e-02
             </td>
         </tr>
         <tr>
