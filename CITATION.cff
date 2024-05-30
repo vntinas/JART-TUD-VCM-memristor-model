@@ -19,8 +19,6 @@ preferred-citation:
     orcid: "https://orcid.org/0000-0000-0000-0000"
   doi: "10.1109/SMACD58065.2023.10192107"
   journal: "Journal Title"
-  month: 9
-  start: 1 # First page number
-  end: 10 # Last page number
+  month: 7
   title: "A Simplified Variability-Aware VCM Memristor Model for Efficient Circuit Simulation"
   year: 2023
