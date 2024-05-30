@@ -22,7 +22,7 @@ preferred-citation:
   month: 9
   start: 1 # First page number
   end: 10 # Last page number
-  title: "My awesome research software"
+  title: "A Simplified Variability-Aware VCM Memristor Model for Efficient Circuit Simulation"
   issue: 1
   volume: 1
   year: 2021
