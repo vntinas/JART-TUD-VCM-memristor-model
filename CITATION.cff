@@ -8,9 +8,3 @@ title: "JART-TUD_VCM_memristor_model"
 version: 0.1.0
 date-released: 2023-02-18
 url: "https://github.com/vntinas/JART-TUD_VCM_memristor_model"
-preferred-citation:
-  type: conference-paper
-  - family-names: "Ntinas"
-    given-names: "Vasileios"
-    orcid: "https://orcid.org/0000-0002-2367-5567"
-  title: "A Simplified Variability-Aware VCM Memristor Model for Efficient Circuit Simulation"
