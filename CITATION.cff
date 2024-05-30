@@ -9,7 +9,7 @@ version: 0.1.0
 date-released: 2023-02-18
 url: "https://github.com/vntinas/JART-TUD_VCM_memristor_model"
 preferred-citation:
-  type: article
+  type: conference-paper
   authors:
   - family-names: "Ntinas"
     given-names: "Vasileios"
