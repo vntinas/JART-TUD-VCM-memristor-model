@@ -14,13 +14,12 @@ $p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 
 $p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 
-
 $p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 
 $p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 1$
 
 
-$p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{5,0|f}(d_{\rm r}, d_{\rm l})\color{black} - p_{5,1|f}(d_{\rm r}, d_{\rm l}) * e^{-p_{5,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}}$
+$p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{5,0|f}(d_{\rm r}, d_{\rm l})\color{black} - \color{blue}p_{5,1|f}(d_{\rm r}, d_{\rm l})\color{black} * e^{-\color{blue}p_{5,2|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M}}$
 
 
 ```math
