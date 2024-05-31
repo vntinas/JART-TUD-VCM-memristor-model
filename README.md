@@ -65,7 +65,7 @@ $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{
 ##### Applied Voltage V<sub>M</sub>>0
 $p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,0|f}(d_{\rm r}, d_{\rm l})$
 
-$p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,1} + Dp_{5,1,r}*d_{\rm r} + Dp_{5,1,l}*d_{\rm l}$
+$p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,1} + D_{p_{5,1,r}}*d_{\rm r} + Dp_{5,1,l}*d_{\rm l}$
 
 $p_{5,2|f}(d_{\rm r}, d_{\rm l}) = p_{5,2}$
 
