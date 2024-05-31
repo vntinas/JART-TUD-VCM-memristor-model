@@ -1,7 +1,7 @@
 # JART-TUD VCM memristor model
 
 ## Fitting parameter values for I<sub>M</sub>
-Simplified memristor current ($I_{\rm M}$) expression:
+### Simplified memristor current ($I_{\rm M}$) expression
 
 ```math
 \begin{aligned}[b]
@@ -9,7 +9,7 @@ I_{\rm M}\left(N_{\rm d},V_{\rm M}, d_{\rm r}, d_{\rm l}\right) = &\textcolor{gr
 \end{aligned}
 
 ```
-
+#### $p_i$ functions
 
 ### Applied Voltage V<sub>M</sub>>0
 <table>
