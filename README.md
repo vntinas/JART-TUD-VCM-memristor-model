@@ -3,11 +3,11 @@
 ## Fitting parameter values for I<sub>M</sub>
 Simplified memristor current (I<sub>M</sub>) expression:
 
-\[
+```math
 
 I_{\rm M}
 
-\]
+```
 
 
 ### Applied Voltage V<sub>M</sub>>0
