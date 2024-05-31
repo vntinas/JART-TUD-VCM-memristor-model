@@ -12,7 +12,7 @@
 ##### Applied Voltage V<sub>M</sub>>0
 ```math
 \begin{aligned}[b]
-p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 0\\
+p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 0\\
 p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 0\\
 p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 0\\
 p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 1\\
