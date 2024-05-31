@@ -10,7 +10,7 @@
   ```
 #### $p_i$ functions
 ##### Applied Voltage V<sub>M</sub>>0
-$$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 0$$
+$$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ 0$$
 
 ```math
 \begin{aligned}[b]
