@@ -15,25 +15,12 @@ $p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 $p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 
 
-```math
-\begin{aligned}[b]
-p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 0
-\end{aligned}
-```
+$p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
+
+$p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 1$
 
 
-```math
-\begin{aligned}[b]
-p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 1
-\end{aligned}
-```
-
-
-```math
-\begin{aligned}[b]
-p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \color{blue}p_{5,0|f}(d_{\rm r}, d_{\rm l})\color{black} - p_{5,1|f}(d_{\rm r}, d_{\rm l}) * e^{-p_{5,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}}
-\end{aligned}
-```
+$p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{5,0|f}(d_{\rm r}, d_{\rm l})\color{black} - p_{5,1|f}(d_{\rm r}, d_{\rm l}) * e^{-p_{5,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}}$
 
 
 ```math
