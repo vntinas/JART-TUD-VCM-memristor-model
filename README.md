@@ -1,6 +1,7 @@
 # JART-TUD VCM memristor model
 
 ## Fitting parameter values for I<sub>M</sub>
+Simplified memristor current (I<sub>M</sub>) expression:
 
 ### Applied Voltage V<sub>M</sub>>0
 <table>
