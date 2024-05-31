@@ -8,6 +8,8 @@
   I_{\rm M}\left(N_{\rm d},V_{\rm M}, d_{\rm r}, d_{\rm l}\right) = &\textcolor{green}{{p}_{\rm1}(V_{\rm M}, d_{\rm r}, d_{\rm l})}\left(\textcolor{green}{{p}_{\rm2}(V_{\rm M}, d_{\rm r}, d_{\rm l})}\left( e^{\frac{\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-\textcolor{green}{{p}_{\rm3}(V_{\rm M}, d_{\rm r}, d_{\rm l})}\right)}{\textcolor{green}{{p}_{\rm4}(V_{\rm M}, d_{\rm r}, d_{\rm l})}}}-1\right)+\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-\textcolor{green}{{p}_{\rm3}(V_{\rm M}, d_{\rm r}, d_{\rm l})}\right)\right) \\ &+ \frac{\textcolor{green}{{p}_{\rm5}(V_{\rm M}, d_{\rm r}, d_{\rm l})}}{\left(\textcolor{green}{{p}_{\rm6}(V_{\rm M},d_r,d_l)}+\textcolor{green}{{p}_{\rm7}(V_{\rm M},d_r,d_l)}\cdot\left(\textcolor{green}{{p}_{\rm8}(V_{\rm M},d_r,d_l)}e^{\ln\left(\frac{N_{\rm d}}{N_{\rm d,L}}\right)-\textcolor{green}{{p}_{\rm9}(V_{\rm M},d_r,d_l)}}\right)^{-\textcolor{green}{{p}_{\rm10}(V_{\rm M},d_r,d_l)}}\right)^{1/\textcolor{green}{{p}_{\rm11}(V_{\rm M},d_r,d_l)}}}
   \end{aligned}
   ```
+
+
 #### $p_i$ functions
 ##### Applied Voltage V<sub>M</sub>>0
 $p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
@@ -31,6 +33,10 @@ $p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 $p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{10,0|f}(d_{\rm r}, d_{\rm l})\color{black} + \color{blue}p_{10,1|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M} + \color{blue}p_{10,2|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M}^2$
 
 $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{\rm l})\color{black} + \color{blue}p_{11,1|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M} + \color{blue}p_{11,2|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M}^2$
+
+
+
+
 
 ##### Applied Voltage V<sub>M</sub><0
 $p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{1,0|f}(d_{\rm r}, d_{\rm l})\color{black}\frac{\color{blue}p_{1,1|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M} + \color{blue}p_{1,2|f}(d_{\rm r}, d_{\rm l})\color{black} * V_{\rm M}^2}{1 + \color{blue}p_{1,3|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M} + \color{blue}p_{1,4|f}(d_{\rm r}, d_{\rm l})\color{black} * V_{\rm M}^2}$
@@ -57,12 +63,20 @@ $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{
 
 #### $p_{i,j|f}$ functions
 ##### Applied Voltage V<sub>M</sub>>0
-$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
+$p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,1|f}(d_{\rm r}, d_{\rm l})$
+
+$p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,1} + Dp_{5,1,r}*d_{\rm r} + Dp_{5,1,l}*d_{\rm l}$
 
 ##### Applied Voltage V<sub>M</sub><0
 $p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
 
 
+
+
+
+
+
+        
 ## Fitting parameter values
 ### Applied Voltage V<sub>M</sub>>0
 <table>
