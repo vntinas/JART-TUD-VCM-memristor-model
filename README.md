@@ -33,30 +33,27 @@ $p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{10,0|f}(d_{\rm r}, d_{
 $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{\rm l})\color{black} + \color{blue}p_{11,1|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M} + \color{blue}p_{11,2|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M}^2$
 
 ##### Applied Voltage V<sub>M</sub><0
-```math
-\begin{aligned}[b]
-p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{1,0|f}(d_{\rm r}, d_{\rm l})\frac{p_{1,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,2|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}{1 + p_{1,3|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,4|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}\\
-p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{2,0|f}(d_{\rm r}, d_{\rm l})\\
-p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{3,0|f}(d_{\rm r}, d_{\rm l}) + p_{3,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}\\
-p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{4,0|f}(d_{\rm r}, d_{\rm l}) - p_{4,1|f}(d_{\rm r}, d_{\rm l}) * e^{-p_{4,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}}\\
-p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{5,0|f}(d_{\rm r}, d_{\rm l}) + p_{5,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{5,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}^2\\
-p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 1\\
-p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{7,0|f}(d_{\rm r}, d_{\rm l})\\
-p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 1
-\end{aligned}
-```
-```math
-\begin{aligned}[b]
-p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{9,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{9,1|f}(d_{\rm r}, d_{\rm l}) - p_{9,0|f}(d_{\rm r}, d_{\rm l})}{1 + e^{\frac{V_{\rm M}-p_{9,2|f}(d_{\rm r}, d_{\rm l})}{p_{9,3|f}(d_{\rm r}, d_{\rm l})}}}\\
-\end{aligned}
-```
+$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{1,0|f}(d_{\rm r}, d_{\rm l})\frac{p_{1,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,2|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}{1 + p_{1,3|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,4|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}\\
 
-```math
-\begin{aligned}[b]
-p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{10,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{10,1|f}(d_{\rm r}, d_{\rm l}) - p_{10,0|f}(d_{\rm r}, d_{\rm l})}{1 + e^{\frac{V_{\rm M}-p_{10,2|f}(d_{\rm r}, d_{\rm l})}{p_{10,3|f}(d_{\rm r}, d_{\rm l})}}}\\
-p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ &p_{11,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{11,1|f}(d_{\rm r}, d_{\rm l}) - p_{11,0|f}(d_{\rm r}, d_{\rm l})}{1 + e^{\frac{V_{\rm M}-p_{11,2|f}(d_{\rm r}, d_{\rm l})}{p_{11,3|f}(d_{\rm r}, d_{\rm l})}}}
-\end{aligned}
-```
+$p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{2,0|f}(d_{\rm r}, d_{\rm l})\\
+
+$p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{3,0|f}(d_{\rm r}, d_{\rm l}) + p_{3,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}$
+
+$p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{4,0|f}(d_{\rm r}, d_{\rm l}) - p_{4,1|f}(d_{\rm r}, d_{\rm l}) * e^{-p_{4,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}}$
+
+$p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{5,0|f}(d_{\rm r}, d_{\rm l}) + p_{5,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{5,2|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}^2$
+
+$p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 1$
+
+$p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{7,0|f}(d_{\rm r}, d_{\rm l})$
+
+$p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 1$
+
+$p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{9,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{9,1|f}(d_{\rm r}, d_{\rm l}) - p_{9,0|f}(d_{\rm r}, d_{\rm l})}{1 + e^{\frac{V_{\rm M}-p_{9,2|f}(d_{\rm r}, d_{\rm l})}{p_{9,3|f}(d_{\rm r}, d_{\rm l})}}}$
+
+$p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{10,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{10,1|f}(d_{\rm r}, d_{\rm l}) - p_{10,0|f}(d_{\rm r}, d_{\rm l})}{1 + e^{\frac{V_{\rm M}-p_{10,2|f}(d_{\rm r}, d_{\rm l})}{p_{10,3|f}(d_{\rm r}, d_{\rm l})}}}$
+
+$p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{11,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{11,1|f}(d_{\rm r}, d_{\rm l}) - p_{11,0|f}(d_{\rm r}, d_{\rm l})}{1 + e^{\frac{V_{\rm M}-p_{11,2|f}(d_{\rm r}, d_{\rm l})}{p_{11,3|f}(d_{\rm r}, d_{\rm l})}}}$
 
 ## Fitting parameter values
 ### Applied Voltage V<sub>M</sub>>0
