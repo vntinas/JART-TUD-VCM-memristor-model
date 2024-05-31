@@ -15,7 +15,7 @@
 p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 0
 \end{aligned}
 ```
-
+$\color{red}{\textsf{lorem ipsum}}$
 
 ```math
 \begin{aligned}[b]
