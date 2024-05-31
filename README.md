@@ -33,9 +33,9 @@ $p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{10,0|f}(d_{\rm r}, d_{
 $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{\rm l})\color{black} + \color{blue}p_{11,1|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M} + \color{blue}p_{11,2|f}(d_{\rm r}, d_{\rm l})\color{black}*V_{\rm M}^2$
 
 ##### Applied Voltage V<sub>M</sub><0
-$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{1,0|f}(d_{\rm r}, d_{\rm l})\frac{p_{1,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,2|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}{1 + p_{1,3|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,4|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}\\
+$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{1,0|f}(d_{\rm r}, d_{\rm l})\frac{p_{1,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,2|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}{1 + p_{1,3|f}(d_{\rm r}, d_{\rm l})*V_{\rm M} + p_{1,4|f}(d_{\rm r}, d_{\rm l}) * V_{\rm M}^2}$
 
-$p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{2,0|f}(d_{\rm r}, d_{\rm l})\\
+$p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{2,0|f}(d_{\rm r}, d_{\rm l})$
 
 $p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = p_{3,0|f}(d_{\rm r}, d_{\rm l}) + p_{3,1|f}(d_{\rm r}, d_{\rm l})*V_{\rm M}$
 
