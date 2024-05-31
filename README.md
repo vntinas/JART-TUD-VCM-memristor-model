@@ -63,9 +63,39 @@ $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{
 
 #### $p_{i,j|f}$ functions
 ##### Applied Voltage V<sub>M</sub>>0
-$p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,1|f}(d_{\rm r}, d_{\rm l})$
+$p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,0|f}(d_{\rm r}, d_{\rm l})$
 
 $p_{5,1|f}(d_{\rm r}, d_{\rm l}) = p_{5,1} + Dp_{5,1,r}*d_{\rm r} + Dp_{5,1,l}*d_{\rm l}$
+
+$p_{5,2|f}(d_{\rm r}, d_{\rm l}) = p_{5,2}$
+
+$p_{6,0|f}(d_{\rm r}, d_{\rm l}) = p_{6,0} + Dp_{6,0,r}*d_{\rm r}$
+
+$p_{6,1|f}(d_{\rm r}, d_{\rm l}) = p_{6,1}$
+
+$p_{7,0|f}(d_{\rm r}, d_{\rm l}) = p_{7,0} + Dp_{7,0,r}*d_{\rm r} + Dp_{7,0,r2}*d_{\rm r}^2 + Dp_{7,0,l}*d_{\rm l}$
+
+$p_{7,1|f}(d_{\rm r}, d_{\rm l}) = p_{7,1}$
+
+$p_{7,2|f}(d_{\rm r}, d_{\rm l}) = p_{7,2} + Dp_{7,2,r}*d_{\rm r} + Dp_{7,2,r2}*d_{\rm r}^2 + (Dp_{7,2,l} + Dp_{7,2,l,r}*d_{\rm r} + Dp_{7,2,l,r2}*d_{\rm r}^2) * d_{\rm l}$
+
+$p_{7,3|f}(d_{\rm r}, d_{\rm l}) = p_{7,3}$
+
+$p_{8,0|f}(d_{\rm r}, d_{\rm l}) = p_{8,0} + Dp_{8,0,l}*d_{\rm l}$
+
+$p_{8,1|f}(d_{\rm r}, d_{\rm l}) = p_{8,1}$
+
+$p_{10,0|f}(d_{\rm r}, d_{\rm l}) = p_{10,0} + Dp_{10,0,l}*d_{\rm l}$
+
+$p_{10,1|f}(d_{\rm r}, d_{\rm l}) = p_{10,1}$
+
+$p_{10,2|f}(d_{\rm r}, d_{\rm l}) = p_{10,2}$
+
+$p_{11,0|f}(d_{\rm r}, d_{\rm l}) = p_{11,0} + Dp_{11,0,l}*d_{\rm l}$
+
+$p_{11,1|f}(d_{\rm r}, d_{\rm l}) = p_{11,1}$
+
+$p_{11,2|f}(d_{\rm r}, d_{\rm l}) = p_{11,2}$
 
 ##### Applied Voltage V<sub>M</sub><0
 $p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
