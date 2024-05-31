@@ -3,13 +3,10 @@
 ## Fitting parameter values for I<sub>M</sub>
 Simplified memristor current (I<sub>M</sub>) expression:
 
-\[
-\scalebox{.9}{
-  \begin{aligned}[b]
+\[\begin{aligned}[b]
   I_{\rm M}\left(N_{\rm d},V_{\rm M}\right) = &{\bf p}_{\rm1}\left({\bf p}_{\rm2}\left( e^{\frac{\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-{\bf p}_{\rm3}\right)}{{\bf p}_{\rm4}}}-1\right)+\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-{\bf p}_{\rm3}\right)\right) \\
             &+ \frac{{\bf p}_{\rm5}}{\left({\bf p}_{\rm6}+{\bf p}_{\rm7}\cdot\left({\bf p}_{\rm8}e^{\ln\left(\frac{N_{\rm d}}{N_{\rm d,L}}\right)-{\bf p}_{\rm9}}\right)^{-{\bf p}_{\rm10}}\right)^{1/{\bf p}_{\rm11}}}
   \end{aligned}
-}
 \]
 
 
