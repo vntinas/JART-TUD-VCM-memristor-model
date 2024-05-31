@@ -37,7 +37,7 @@ p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{5,0|f}(d_{\rm r}, d_{\rm l}) + p_{
 p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 1\\
 p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{7,0|f}(d_{\rm r}, d_{\rm l})\\
 p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 1\\
-p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{9,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{9,1|f}(d_{\rm r}, d_{\rm l}) - p_{9,0|f}(d_{\rm r}, d_{\rm l}) }{1 + e^{\frac{V_M-p_{9}_{,}_{2}_{|}_{f} }{1 }} }
+p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & p_{9,0|f}(d_{\rm r}, d_{\rm l}) + \frac{p_{9,1|f}(d_{\rm r}, d_{\rm l}) - p_{9,0|f}(d_{\rm r}, d_{\rm l}) }{1 + e^{\frac{V_M-p_{9,2|f} }{1 }} }
 \end{aligned}
 ```
 ```math
