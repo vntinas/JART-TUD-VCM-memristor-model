@@ -12,34 +12,34 @@
 ##### Applied Voltage V<sub>M</sub>>0
 ```math
 \begin{aligned}[b]
-p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 0\\
-p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 0\\
-p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 0\\
-p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 1\\
-p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 
+p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 
 \end{aligned}
 ```
 
 ##### Applied Voltage V<sub>M</sub><0
 ```math
 \begin{aligned}[b]
-p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & \\
-p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = & 
+p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_2(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_3(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_4(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_5(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_6(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_7(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_8(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_9(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & \\
+p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) ~=~ & 
 \end{aligned}
 ```
 
