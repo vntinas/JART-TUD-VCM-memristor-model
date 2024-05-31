@@ -55,6 +55,14 @@ $p_{10}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{10,0|f}(d_{\rm r}, d_{
 
 $p_{11}(V_{\rm M}, d_{\rm r}, d_{\rm l}) = \color{blue}p_{11,0|f}(d_{\rm r}, d_{\rm l})\color{black} + \frac{\color{blue}p_{11,1|f}(d_{\rm r}, d_{\rm l})\color{black} - \color{blue}p_{11,0|f}(d_{\rm r}, d_{\rm l})\color{black}}{1 + e^{\frac{V_{\rm M}-\color{blue}p_{11,2|f}(d_{\rm r}, d_{\rm l})\color{black}}{\color{blue}p_{11,3|f}(d_{\rm r}, d_{\rm l})\color{black}}}}$
 
+#### $p_{i,j|f}$ functions
+##### Applied Voltage V<sub>M</sub>>0
+$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
+
+##### Applied Voltage V<sub>M</sub><0
+$p_1(V_{\rm M}, d_{\rm r}, d_{\rm l}) = 0$
+
+
 ## Fitting parameter values
 ### Applied Voltage V<sub>M</sub>>0
 <table>
