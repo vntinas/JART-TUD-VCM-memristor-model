@@ -5,7 +5,7 @@ Simplified memristor current ($I_{\rm M}$) expression:
 
 ```math
 
-I_{\rm M}\left(N_{\rm d},V_{\rm M}\right) = \textcolor{green}{{p}_{\rm1}(V_{\rm M})}\left(\textcolor{green}{{p}_{\rm2}(V_{\rm M})}\left( e^{\frac{\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-\textcolor{green}{{p}_{\rm3}(V_{\rm M})}\right)}{\textcolor{green}{{p}_{\rm4}(V_{\rm M})}}}-1\right)+\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-{\bf p}_{\rm3}\right)\right) + \frac{{\bf p}_{\rm5}}{\left({\bf p}_{\rm6}+{\bf p}_{\rm7}\cdot\left({\bf p}_{\rm8}e^{\ln\left(\frac{N_{\rm d}}{N_{\rm d,L}}\right)-{\bf p}_{\rm9}}\right)^{-{\bf p}_{\rm10}}\right)^{1/{\bf p}_{\rm11}}}
+I_{\rm M}\left(N_{\rm d},V_{\rm M}\right) = \textcolor{green}{{p}_{\rm1}(V_{\rm M})}\left(\textcolor{green}{{p}_{\rm2}(V_{\rm M})}\left( e^{\frac{\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-\textcolor{green}{{p}_{\rm3}(V_{\rm M})}\right)}{\textcolor{green}{{p}_{\rm4}(V_{\rm M})}}}-1\right)+\left(\ln\frac{N_{\rm d}}{N_{\rm d,L}}-\textcolor{green}{{p}_{\rm3}(V_{\rm M})}\right)\right) + \frac{\textcolor{green}{{p}_{\rm5}(V_{\rm M})}}{\left(\textcolor{green}{{p}_{\rm6}(V_{\rm M})}+\textcolor{green}{{p}_{\rm7}(V_{\rm M})}\cdot\left(\textcolor{green}{{p}_{\rm8}(V_{\rm M})}e^{\ln\left(\frac{N_{\rm d}}{N_{\rm d,L}}\right)-\textcolor{green}{{p}_{\rm9}(V_{\rm M})}}\right)^{-\textcolor{green}{{p}_{\rm10}(V_{\rm M})}}\right)^{1/\textcolor{green}{{p}_{\rm11}(V_{\rm M})}}}
 
 ```
 
