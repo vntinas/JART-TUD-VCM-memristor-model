@@ -1,5 +1,13 @@
 # JART-TUD VCM memristor model
 
+### Code availability timeline
+- Python: June 15, 2024
+- Verilog-A: June 30, 2024
+- Matlab: July 15, 2024
+- LTSPICE: July 31, 2024
+- Julia: August 15, 2024
+
+
 ## Memristor Current Equation
 ### Simplified memristor current ($I_{\rm M}$) expression
 
