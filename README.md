@@ -1,7 +1,7 @@
 # JART-TUD VCM memristor model
 
 ### Code availability timeline
-- Python: **June 20**, 2024
+- Python: **June 23, 2024 (Final)**
 - Verilog-A: June 30, 2024
 - Matlab: July 15, 2024
 - LTSPICE: July 31, 2024
