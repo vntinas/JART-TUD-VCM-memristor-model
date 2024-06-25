@@ -1,4 +1,4 @@
-import JART_TUD_lib as vns
+import JART_TUD_VCM_lib as vns
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
