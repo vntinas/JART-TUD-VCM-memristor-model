@@ -1,0 +1,503 @@
+//########################### JART-TUD VCM device model ############################
+// JART-TUD VCM Library
+// author: Vasileios Ntinas, Ph.D.
+// affiliation: Technische Universitt Dresden (TUD), Germany
+// version: v0.1 (modified version of JART VCM 1b var model)
+// version date: July 4, 2024
+// 
+// Cite us
+// If you use the material of this repository, you should cite Ref. [1]
+// 
+// Abbreviations
+// JART - Jlich Aachen Resistive Switching Tools
+// TUD - Technische Universitt Dresden
+// VCM - Valence Change Mechanism
+// 
+// References
+// [1] V. Ntinas, D. Patel, Y. Wang, I. Messaris, V. Rana, S. Menzel, A. Ascoli, R. Tetzlaff 
+//     "A Simplified Variability-Aware VCM Memristor Model for Efficient Circuit Simulation",
+//     In Proc. 19th Int. Conf. on Synthesis, Modeling, Analysis and Simulation Methods and Applications to Circuit Design (SMACD'23), 2023,
+//     Best Paper Award on Emerging Technologies and Applications,
+//     DOI: 10.1109/SMACD58065.2023.10192107 (https://doi.org/10.1109/SMACD58065.2023.10192107)
+//     BibTex: https://scholar.googleusercontent.com/scholar.bib?q=info:_LUZqGsBOhIJ:scholar.google.com/&output=citation&scisdr=ClHj7u-eEILHgMG4jJk:AFWwaeYAAAAAZnO-lJkeFrHMqTmQVnEzTEZTh4I&scisig=AFWwaeYAAAAAZnO-lL6dqc9kBy6ATnmgBWOtHx8&scisf=4&ct=citation&cd=-1
+// [2] C. Bengel, A. Siemon, F. Cppers, S. Hoffmann-Eifert, A. Hardtdegen, M. von Witzleben, L. Hellmich, R. Waser, S. Menzel,
+//     "Variability-aware modeling of filamentary oxide-based bipolar resistive switching cells using SPICE level compact models." 
+//     IEEE Transactions on Circuits and Systems I: Regular Papers 67.12 (2020): 4618-4630.
+//     DOI: 10.1109/TCSI.2020.3018502 (https://doi.org/10.1109/TCSI.2020.3018502)
+//     BibTex: https://scholar.googleusercontent.com/scholar.bib?q=info:RWKGlE_Uuf0J:scholar.google.com/&output=citation&scisdr=ClHj7u-eEILHgMHEzPM:AFWwaeYAAAAAZnPC1POLdT9gn9D4YySrGGbz7H4&scisig=AFWwaeYAAAAAZnPC1OLLASh_1P8RjeL1UOvNB8U&scisf=4&ct=citation&cd=-1
+//##################################################################################
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module JART_TUD_VCM_cell( AE, OE );
+
+	inout AE,OE;
+	electrical AE,OE,ion,Nd;
+	electrical trackNdiscmax,trackNdiscmin,trackrvar,trackrold,trackrnew,tracklvar,tracklold,tracklnew;
+	ground gnd;
+
+	//Electric branches.
+	branch (AE,OE) memristor;
+
+//  physical constants do not change!
+	localparam Arichardson  = 6.01e5;								// Richardson's constant [A/m^2K^2]  
+	localparam mdiel		  = 9.10938e-31;			  				// electron rest mass [kg]
+	localparam zvo		  = 2;									// oxygen vacancy charge number
+	localparam T0 	= 293;										// ambient temperature [K] 
+
+//  fitting parameters
+
+	parameter real eps	= 17 from [10:25]; 						// static hafnium oxide permittivity 
+	parameter real epsphib	  =  5.5;							// hafnium oxide permittivity related to image force barrier lowering
+	parameter real phibn0 	= 0.18 from [0.1:0.5];				// nominal schottky barrier height [eV]
+	parameter real phin  	= 0.1	from [0.1:0.3];					// energy level difference between the Fermi level in the oxide and the oxide conduction band edge [eV]
+	parameter real un	= 4e-6	from [1e-6:1e-5];				// electron mobility [m^2/Vs]
+	parameter real Ndiscmax	= 22	 from [0.001:1100];				// maximum oxygen vacancy concentration in the disc[10^26/m^3]
+	parameter real Ndiscmin	= 0.004	 from [0.0001:100];			// minimum oxygen vacancy concentration in the disc [10^26/m^3]
+	parameter real Ninit =0.004	from [0.0001:1000];				// initial oxygen vacancy concentration in the disc [10^26/m^3]
+	parameter real Nplug = 20 from [0.001:100];					// oxygen vacancy concentration in the plug [10^26/m^3]
+	parameter real a	= 0.25e-9 from [0.1e-9:1e-9];					// ion hopping distance [m]
+	parameter real nyo	= 2e13 from [1e10:1e14];					// attemp frequenzy [Hz]
+	parameter real dWa	= 1.35 from [0.8:1.5];					// activation energy [eV]
+	parameter real Rth0  = 15.72e6 from [1e6:20e6];				// thermal resistance of the Hafnium Oxide [K/W]
+	parameter real rdet = 45e-9 	from [5e-9:100e-9];				// radius of the filament [m]
+	parameter real rnew = 45e-9 from [5e-9:100e-9];				// radius of the filament [m]
+	parameter real lcell	= 3	from [2:5];							// length of disc and plug region [nm]
+	parameter real ldet 	= 0.4 	from [0.1:5]; 					// length of the disc region [nm]
+	parameter real lnew 	= 0.4 	from [0.1:5]; 					// length of the disc region [nm]
+	parameter real Rtheff_scaling = 0.27 from [0.1:1];				// scaling factor for RESET 
+	parameter real RTiOx = 650 from [0:5000]; 						// series resistance of the TiOx layer[Ohm]
+	parameter real R0 = 719.2437;									//  Resistance at T0 [Ohm}
+	parameter real Rthline = 90471.47;							// thermal conductivity of the Platinum and Titanium [W/mK]
+	parameter real alphaline = 3.92e-3;							// temperature coefficient [1/K]
+
+	////////////////////////////////////////////////////////
+	//	fitting parameters Ischottky approximation		   //
+	////////////////////////////////////////////////////////
+
+	// Positive Imem Fitting Coefficients
+	localparam p5_1_p = 1.3769e-03;
+	localparam p5_2_p = 8.1819e-02;
+	localparam Dp5_1_r_p = 2.3087e-04;
+	localparam Dp5_1_l_p = 1.3293e-07;
+	localparam p6_0_p = 1.9687e-01;
+	localparam p6_1_p = -2.1833e-02;
+	localparam Dp6_0_r_p = 2.6129e-02;
+	localparam p7_0_p = -9.7606e+01;
+	localparam p7_1_p = 7.8250e+00;
+	localparam p7_2_p = 9.9296e+01;
+	localparam p7_3_p = 7.1092e-02;
+	localparam Dp7_0_r_p = -7.4338e-01;
+	localparam Dp7_0_r2_p = 1.1713e-01;
+	localparam Dp7_2_r_p = 6.9547e-01;
+	localparam Dp7_2_r2_p = -1.3724e-01;
+	localparam Dp7_2_l_r_p = -9.0456e-03;
+	localparam Dp7_2_l_r2_p = -1.2221e-03;
+	localparam Dp7_0_l_p = 2.4377e+00;
+	localparam Dp7_2_l_p = -2.3728e+00;
+	localparam p8_0_p = 1.1713e-01;
+	localparam p8_1_p = 8.1370e-02;
+	localparam Dp8_0_l_p = -3.8320e-03;
+	localparam p10_0_p = 9.7733e-01;
+	localparam p10_1_p = 3.5214e-02;
+	localparam p10_2_p = 1.2856e-02;
+	localparam Dp10_0_l_p = 5.9623e-05;
+	localparam p11_0_p = 9.4207e-01;
+	localparam p11_1_p = 3.8953e-02;
+	localparam p11_2_p = 2.3436e-02;
+	localparam Dp11_0_l_p = -6.7239e-04;
+
+	// Negative Imem Fitting Coefficients
+	localparam p1_0_n = 1.1830e+00;
+	localparam p1_1_n = -2.7034e-03;
+	localparam p1_2_n = -4.5379e-06;
+	localparam p1_3_n = 9.9115e-01;
+	localparam p1_4_n = 4.4093e-01;
+	localparam Dp1_0_r_n = -6.2246e-02;
+	localparam Dp1_1_r_n = -1.8077e-04;
+	localparam Dp1_2_r_n = 1.7313e-04;
+	localparam Dp1_3_r_n = 5.7155e-03;
+	localparam Dp1_4_r_n = -9.7198e-04;
+	localparam Dp1_0_l_n = 1.1419e-01;
+	localparam Dp1_1_l_n = -2.0831e-04;
+	localparam Dp1_2_l_n = -8.9677e-05;
+	localparam Dp1_3_l_n = -2.3237e-02;
+	localparam Dp1_4_l_n = -1.8507e-03;
+	localparam p2_0_n = -2.5955e+03;
+	localparam p3_0_n = 6.8845e+00;
+	localparam p3_1_n = -5.8995e-01;
+	localparam Dp3_0_r_n = 1.2536e-01;
+	localparam Dp3_1_r_n = 6.5498e-02;
+	localparam Dp3_0_l_n = 2.5983e-01;
+	localparam Dp3_1_l_n = 8.5666e-02;
+	localparam p4_0_n = 2.5890e+03;
+	localparam p4_1_n = -2.9537e+00;
+	localparam p4_2_n = -5.4031e-01;
+	localparam Dp4_1_r_n = 8.2522e-02;
+	localparam Dp4_1_l_n = -7.2255e-02;
+	localparam p5_1_n = 6.4705e-04;
+	localparam p5_2_n = 5.1529e-05;
+	localparam Dp5_1_r_n = 1.5169e-05;
+	localparam Dp5_2_r_n = 6.7042e-07;
+	localparam Dp5_2_r2_n = 1.0756e-06;
+	localparam Dp5_1_l_n = 1.3260e-06;
+	localparam p7_0_n = 1.1708e-01;
+	localparam Dp7_0_r_n = 4.8662e-04;
+	localparam Dp7_0_l_n = 3.7351e-03;
+	localparam p9_0_n = 3.9052e+00;
+	localparam p9_1_n = 9.6130e+00;
+	localparam p9_2_n = -4.5637e-01;
+	localparam p9_3_n = 1.4310e+00;
+	localparam Dp9_0_r_n = -5.4723e-01;
+	localparam Dp9_3_r_n = 3.6000e-01;
+	localparam Dp9_0_l_n = 3.6802e-02;
+	localparam p10_0_n = 4.6925e-01;
+	localparam p10_1_n = 3.4731e+00;
+	localparam p10_2_n = -1.1871e+00;
+	localparam p10_3_n = 5.6947e-01;
+	localparam Dp10_1_r_n = 1.1444e-02;
+	localparam p11_0_n = 1.0667e+01;
+	localparam p11_1_n = 1.2812e-01;
+	localparam p11_2_n = 7.4414e-01;
+	localparam p11_3_n = 4.2381e-01;
+	localparam Dp11_0_r_n = 3.6290e-01;
+	// Special fitting parameter (I plan to normalize the state variable in the next version and I will discard this parameter)
+	localparam Ndmin = 0.004;
+
+	real A,Flim,Rtheff,Imem,cvo,Treal,Nreal,Nchange,E_ion,dWatotal,dWamin,dWamax,gamma,Rdisc,Rseries,Vseries,Vdisc;
+
+	real Ninitreal,V_m;
+	integer trig;
+
+	real d_r, d_l;
+
+	real rvar, lvar;
+	real rold, lold, Nold;
+
+	//real a_v,b2_v,b4_v,beta1_v,beta2_v,d1_v,f2_v,Q_v,p22_v,h_v,p31_v,p32_v,p33_v,p34_v,x;
+	real p1_0_neg, p1_1_neg, p1_2_neg, p1_3_neg, p1_4_neg, p2_0_neg, p3_0_neg, p3_1_neg, p4_0_neg, p4_1_neg, p4_2_neg, p5_0_neg, p5_1_neg, p5_2_neg;
+	real p7_0_neg, p9_0_neg, p9_1_neg, p9_2_neg, p9_3_neg, p10_0_neg, p10_1_neg, p10_2_neg, p10_3_neg, p11_0_neg, p11_1_neg, p11_2_neg, p11_3_neg;
+	real p5_0_pos, p5_1_pos, p5_2_pos, p6_0_pos, p6_1_pos, p7_0_pos, p7_1_pos, Dp7_2_l_pos, p7_2_pos, p7_3_pos;
+	real p8_0_pos, p8_1_pos, p10_0_pos, p10_1_pos, p10_2_pos, p11_0_pos, p11_1_pos, p11_2_pos;
+	real p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
+
+	real eps_eff=eps*`P_EPS0; // static hafnium oxide permittivity 
+	real epsphib_eff=epsphib*`P_EPS0; // hafnium oxide permittivity related to image force barrier lowering
+
+
+	analog 
+		begin
+
+@(initial_step)
+begin
+	Ninitreal=Ninit;
+	trig=1;
+	rvar=rnew;
+	lvar=lnew;
+	lold=lnew;
+	rold=rnew;
+	Nold=Ninit;
+	d_r = (rvar-rdet)/(0.1*rdet);
+	d_l = (lvar-ldet)/(0.1*ldet);
+
+	// Calculate p_X,Y parameters for V_m>0 (ie. variability dependence)
+	p5_0_pos = p5_1_p + Dp5_1_r_p * d_r + Dp5_1_l_p * d_l;
+	p5_1_pos = p5_1_p + Dp5_1_r_p * d_r + Dp5_1_l_p * d_l;   // p5_0=p5_1 in [1]
+	p5_2_pos = p5_2_p;                                       // All p_X,Y terms are assigned for completeness 
+                                                        // *The assignment of non-variability-dependent p_X,Y 
+                                                        // terms can be discarded for code efficiency
+	p6_0_pos = p6_0_p + Dp6_0_r_p * d_r;
+	p6_1_pos = p6_1_p;
+	p7_0_pos = p7_0_p + Dp7_0_r_p*d_r + + Dp7_0_r2_p*(d_r**2) + + Dp7_0_l_p*d_l;
+	p7_1_pos = p7_1_p;
+	Dp7_2_l_pos = Dp7_2_l_p + Dp7_2_l_r_p*d_r + + Dp7_2_l_r2_p*(d_r*d_r);     //Special case: Dp7_2_l dependency to d_r
+	p7_2_pos = p7_2_p + Dp7_2_r_p*d_r + + Dp7_2_r2_p*(d_r*d_r) + + Dp7_2_l_pos*d_l;
+	p7_3_pos = p7_3_p;
+	p8_0_pos = p8_0_p + Dp8_0_l_p*d_l;
+	p8_1_pos = p8_1_p;
+	p10_0_pos = p10_0_p + Dp10_0_l_p*d_l;
+	p10_1_pos = p10_1_p;
+	p10_2_pos = p10_2_p;
+	p11_0_pos = p11_0_p + Dp10_0_l_p*d_l;
+	p11_1_pos = p11_1_p;
+	p11_2_pos = p11_2_p;
+
+	// Calculate p_X,Y parameters for V_m<0 (ie. variability dependence)
+	p1_0_neg = p1_0_n + Dp1_0_r_n*d_r + Dp1_0_l_n*d_l;
+	p1_1_neg = p1_1_n + Dp1_1_r_n*d_r + Dp1_1_l_n*d_l;
+	p1_2_neg = p1_2_n + Dp1_2_r_n*d_r + Dp1_2_l_n*d_l;
+	p1_3_neg = p1_3_n + Dp1_3_r_n*d_r + Dp1_3_l_n*d_l;
+	p1_4_neg = p1_4_n + Dp1_4_r_n*d_r + Dp1_4_l_n*d_l;
+	p2_0_neg = p2_0_n;                                      // All p_X,Y terms are assigned for completeness 
+                                                        // *The assignment of non-variability-dependent p_X,Y 
+                                                        // terms can be discarded for code efficiency
+	p3_0_neg = p3_0_n + Dp3_0_r_n*d_r + Dp3_0_l_n*d_l;
+	p3_1_neg = p3_1_n + Dp3_1_r_n*d_r + Dp3_1_l_n*d_l;
+	p4_0_neg = p4_0_n;
+	p4_1_neg = p4_1_n + Dp4_1_r_n*d_r + Dp4_1_l_n*d_l;
+	p4_2_neg = p4_2_n;
+	p5_0_neg = 0;
+	p5_1_neg = p5_1_n + Dp5_1_r_n*d_r + Dp5_1_l_n*d_l;
+	p5_2_neg = p5_2_n + Dp5_2_r_n*d_r + Dp5_2_r2_n*(d_r*d_r);
+	p7_0_neg = p7_0_n + Dp7_0_r_n*d_r + Dp7_0_l_n*d_l;
+	p9_0_neg = p9_0_n + Dp9_0_r_n*d_r + Dp9_0_l_n*d_l;
+	p9_1_neg = p9_1_n;
+	p9_2_neg = p9_2_n;
+	p9_3_neg = p9_3_n + Dp9_3_r_n*d_r;
+	p10_0_neg = p10_0_n;
+	p10_1_neg = p10_1_n + Dp10_1_r_n*d_r;
+	p10_2_neg = p10_2_n;
+	p10_3_neg = p10_3_n;
+	p11_0_neg = p11_0_n + Dp11_0_r_n*d_r;
+	p11_1_neg = p11_1_n;
+	p11_2_neg = p11_2_n;
+	p11_3_neg = p11_3_n;
+end
+
+////////////////////////////////////////////////////////
+// Cycle-to-cycle variability model    			   //
+////////////////////////////////////////////////////////
+@(cross(V(OE,AE) - 1.5e-5, +1))
+begin		
+	rold=rvar; 
+	lold=lvar;
+	Nold=Nreal;
+	trig=1;
+end		
+
+@(cross(V(AE,OE) - 1.5e-5, +1)) 
+begin		
+	rold=rvar;	
+	lold=lvar;
+	Nold=Nreal;
+	trig=1;
+end		
+
+if ((V(AE,OE)<-2e-5)&(trig==1)) //SET at negative voltage 
+	begin
+		rvar=rold+(rnew-rold)*((Nreal-Nold)/(Ndiscmax-Nold)); // Eq. (21) in [2]
+		lvar=lold+(lnew-lold)*((Nreal-Nold)/(Ndiscmax-Nold)); // Eq. (22) in [2]
+		d_r = (rvar-rdet)/(0.1*rdet);
+		d_l = (lvar-ldet)/(0.1*ldet);
+		// Calculate p_X,Y parameters for V_m>0 (ie. variability dependence)
+		p5_0_pos = p5_1_p + Dp5_1_r_p * d_r + Dp5_1_l_p * d_l;
+		p5_1_pos = p5_1_p + Dp5_1_r_p * d_r + Dp5_1_l_p * d_l;   // p5_0=p5_1 in [1]
+		p5_2_pos = p5_2_p;                                       // All p_X,Y terms are assigned for completeness 
+                                 			                       // *The assignment of non-variability-dependent p_X,Y 
+                                 			                       // terms can be discarded for code efficiency
+		p6_0_pos = p6_0_p + Dp6_0_r_p * d_r;
+		p6_1_pos = p6_1_p;
+		p7_0_pos = p7_0_p + Dp7_0_r_p*d_r + + Dp7_0_r2_p*(d_r**2) + + Dp7_0_l_p*d_l;
+		p7_1_pos = p7_1_p;
+		Dp7_2_l_pos = Dp7_2_l_p + Dp7_2_l_r_p*d_r + + Dp7_2_l_r2_p*(d_r*d_r);     //Special case: Dp7_2_l dependency to d_r
+		p7_2_pos = p7_2_p + Dp7_2_r_p*d_r + + Dp7_2_r2_p*(d_r*d_r) + + Dp7_2_l_pos*d_l;
+		p7_3_pos = p7_3_p;
+		p8_0_pos = p8_0_p + Dp8_0_l_p*d_l;
+		p8_1_pos = p8_1_p;
+		p10_0_pos = p10_0_p + Dp10_0_l_p*d_l;
+		p10_1_pos = p10_1_p;
+		p10_2_pos = p10_2_p;
+		p11_0_pos = p11_0_p + Dp10_0_l_p*d_l;
+		p11_1_pos = p11_1_p;
+		p11_2_pos = p11_2_p;
+
+		// Calculate p_X,Y parameters for V_m<0 (ie. variability dependence)
+		p1_0_neg = p1_0_n + Dp1_0_r_n*d_r + Dp1_0_l_n*d_l;
+		p1_1_neg = p1_1_n + Dp1_1_r_n*d_r + Dp1_1_l_n*d_l;
+		p1_2_neg = p1_2_n + Dp1_2_r_n*d_r + Dp1_2_l_n*d_l;
+		p1_3_neg = p1_3_n + Dp1_3_r_n*d_r + Dp1_3_l_n*d_l;
+		p1_4_neg = p1_4_n + Dp1_4_r_n*d_r + Dp1_4_l_n*d_l;
+		p2_0_neg = p2_0_n;                              // All p_X,Y terms are assigned for completeness 
+                                   		              // *The assignment of non-variability-dependent p_X,Y 
+                                                        // terms can be discarded for code efficiency
+		p3_0_neg = p3_0_n + Dp3_0_r_n*d_r + Dp3_0_l_n*d_l;
+		p3_1_neg = p3_1_n + Dp3_1_r_n*d_r + Dp3_1_l_n*d_l;
+		p4_0_neg = p4_0_n;
+		p4_1_neg = p4_1_n + Dp4_1_r_n*d_r + Dp4_1_l_n*d_l;
+		p4_2_neg = p4_2_n;
+		p5_0_neg = 0;
+		p5_1_neg = p5_1_n + Dp5_1_r_n*d_r + Dp5_1_l_n*d_l;
+		p5_2_neg = p5_2_n + Dp5_2_r_n*d_r + Dp5_2_r2_n*(d_r*d_r);
+		p7_0_neg = p7_0_n + Dp7_0_r_n*d_r + Dp7_0_l_n*d_l;
+		p9_0_neg = p9_0_n + Dp9_0_r_n*d_r + Dp9_0_l_n*d_l;
+		p9_1_neg = p9_1_n;
+		p9_2_neg = p9_2_n;
+		p9_3_neg = p9_3_n + Dp9_3_r_n*d_r;
+		p10_0_neg = p10_0_n;
+		p10_1_neg = p10_1_n + Dp10_1_r_n*d_r;
+		p10_2_neg = p10_2_n;
+		p10_3_neg = p10_3_n;
+		p11_0_neg = p11_0_n + Dp11_0_r_n*d_r;
+		p11_1_neg = p11_1_n;
+		p11_2_neg = p11_2_n;
+		p11_3_neg = p11_3_n;
+	end
+else if ((V(AE,OE)>2e-5)&(trig==1))	//RESET at positive voltage
+	begin
+		rvar=rold+(rnew-rold)*((Nold-Nreal)/(Nold-Ndiscmin)); // Eq. (23) in [2]
+		lvar=lold+(lnew-lold)*((Nold-Nreal)/(Nold-Ndiscmin)); // Eq. (24) in [2]
+		d_r = (rvar-rdet)/(0.1*rdet);
+		d_l = (lvar-ldet)/(0.1*ldet);
+		// Calculate p_X,Y parameters for V_m>0 (ie. variability dependence)
+		p5_0_pos = p5_1_p + Dp5_1_r_p * d_r + Dp5_1_l_p * d_l;
+		p5_1_pos = p5_1_p + Dp5_1_r_p * d_r + Dp5_1_l_p * d_l;   // p5_0=p5_1 in [1]
+		p5_2_pos = p5_2_p;                                       // All p_X,Y terms are assigned for completeness 
+                                 			                       // *The assignment of non-variability-dependent p_X,Y 
+                                 			                       // terms can be discarded for code efficiency
+		p6_0_pos = p6_0_p + Dp6_0_r_p * d_r;
+		p6_1_pos = p6_1_p;
+		p7_0_pos = p7_0_p + Dp7_0_r_p*d_r + + Dp7_0_r2_p*(d_r**2) + + Dp7_0_l_p*d_l;
+		p7_1_pos = p7_1_p;
+		Dp7_2_l_pos = Dp7_2_l_p + Dp7_2_l_r_p*d_r + + Dp7_2_l_r2_p*(d_r*d_r);     //Special case: Dp7_2_l dependency to d_r
+		p7_2_pos = p7_2_p + Dp7_2_r_p*d_r + + Dp7_2_r2_p*(d_r*d_r) + + Dp7_2_l_pos*d_l;
+		p7_3_pos = p7_3_p;
+		p8_0_pos = p8_0_p + Dp8_0_l_p*d_l;
+		p8_1_pos = p8_1_p;
+		p10_0_pos = p10_0_p + Dp10_0_l_p*d_l;
+		p10_1_pos = p10_1_p;
+		p10_2_pos = p10_2_p;
+		p11_0_pos = p11_0_p + Dp10_0_l_p*d_l;
+		p11_1_pos = p11_1_p;
+		p11_2_pos = p11_2_p;
+
+		// Calculate p_X,Y parameters for V_m<0 (ie. variability dependence)
+		p1_0_neg = p1_0_n + Dp1_0_r_n*d_r + Dp1_0_l_n*d_l;
+		p1_1_neg = p1_1_n + Dp1_1_r_n*d_r + Dp1_1_l_n*d_l;
+		p1_2_neg = p1_2_n + Dp1_2_r_n*d_r + Dp1_2_l_n*d_l;
+		p1_3_neg = p1_3_n + Dp1_3_r_n*d_r + Dp1_3_l_n*d_l;
+		p1_4_neg = p1_4_n + Dp1_4_r_n*d_r + Dp1_4_l_n*d_l;
+		p2_0_neg = p2_0_n;                              // All p_X,Y terms are assigned for completeness 
+                                   		              // *The assignment of non-variability-dependent p_X,Y 
+                                                        // terms can be discarded for code efficiency
+		p3_0_neg = p3_0_n + Dp3_0_r_n*d_r + Dp3_0_l_n*d_l;
+		p3_1_neg = p3_1_n + Dp3_1_r_n*d_r + Dp3_1_l_n*d_l;
+		p4_0_neg = p4_0_n;
+		p4_1_neg = p4_1_n + Dp4_1_r_n*d_r + Dp4_1_l_n*d_l;
+		p4_2_neg = p4_2_n;
+		p5_0_neg = 0;
+		p5_1_neg = p5_1_n + Dp5_1_r_n*d_r + Dp5_1_l_n*d_l;
+		p5_2_neg = p5_2_n + Dp5_2_r_n*d_r + Dp5_2_r2_n*(d_r*d_r);
+		p7_0_neg = p7_0_n + Dp7_0_r_n*d_r + Dp7_0_l_n*d_l;
+		p9_0_neg = p9_0_n + Dp9_0_r_n*d_r + Dp9_0_l_n*d_l;
+		p9_1_neg = p9_1_n;
+		p9_2_neg = p9_2_n;
+		p9_3_neg = p9_3_n + Dp9_3_r_n*d_r;
+		p10_0_neg = p10_0_n;
+		p10_1_neg = p10_1_n + Dp10_1_r_n*d_r;
+		p10_2_neg = p10_2_n;
+		p10_3_neg = p10_3_n;
+		p11_0_neg = p11_0_n + Dp11_0_r_n*d_r;
+		p11_1_neg = p11_1_n;
+		p11_2_neg = p11_2_n;
+		p11_3_neg = p11_3_n;
+	end
+else
+	begin
+	end
+
+// tracking variability model variables
+V(trackNdiscmax,gnd)<+Ndiscmax;
+V(trackNdiscmin,gnd)<+Ndiscmin;
+
+V(trackrvar,gnd)<+rvar;
+V(trackrold,gnd)<+rold;
+V(trackrnew,gnd)<+rnew;
+
+V(tracklvar,gnd)<+lvar;
+V(tracklold,gnd)<+lold;
+V(tracklnew,gnd)<+lnew;
+
+////////////////////////////////////////////////////////
+// auxiliary variables							   //
+////////////////////////////////////////////////////////
+A =`M_PI*pow(rvar,2); // cross sectional filament area
+
+
+// Calculate the voltage-dependent parameters
+if (V(AE,OE)>0)
+	begin
+		V_m = 1.0*V(AE,OE);
+		// Calculate p_X parameters for V_m>0 (ie. voltage dependence)
+		p1 = 0;
+		p2 = 0;
+		p3 = 0;
+		p4 = 1;
+		p5 = p5_0_pos - p5_1_pos*exp(-p5_2_pos*V_m);                  //Eq.(12) in [1]
+		p6 = p6_0_pos + p6_1_pos*V_m;                                //First-order V_m dependency
+		p7 = p7_0_pos + p7_1_pos*V_m + p7_2_pos*exp(-p7_3_pos*V_m);       //Eq.(7) in [1]
+		p8 = p8_0_pos + p8_1_pos*V_m;                                //First-order V_m dependency
+		p9 = 0;
+		p10 = p10_0_pos + p10_1_pos*V_m + p10_2_pos*(V_m*V_m);            //Second-order V_m dependency
+		p11 = p11_0_pos + p11_1_pos*V_m + p11_2_pos*(V_m*V_m);            //Second-order V_m dependency 
+	end
+else
+	begin
+		V_m = 1.0*V(AE,OE);
+		// Calculate p_X parameters for V_m<0 (ie. voltage dependence)
+		p1 = p1_0_neg*(p1_1_neg*V_m + p1_2_neg*(V_m*V_m))/(1 + p1_3_neg*V_m + p1_4_neg*(V_m*V_m));
+		p2 = p2_0_neg;
+		p3 = p3_0_neg + p3_1_neg*V_m;
+		p4 = p4_0_neg - p4_1_neg*exp(-p4_2_neg*V_m);
+		p5 = p5_0_neg + p5_1_neg*V_m + p5_2_neg*(V_m*V_m);
+		p6 = 1;
+		p7 = p7_0_neg;
+		p8 = 1;
+		p9 = p9_0_neg + (p9_1_neg-p9_0_neg)/(1+exp((V_m-p9_2_neg)/p9_3_neg));
+		p10 = p10_0_neg + (p10_1_neg-p10_0_neg)/(1+exp((V_m-p10_2_neg)/p10_3_neg));
+		p11 = 1/(p11_0_neg + (p11_1_neg-p11_0_neg)/(1+exp((V_m-p11_2_neg)/p11_3_neg)));
+	end
+
+// Calculate I_mem
+Imem = p1*(p2*(exp((ln(Nreal/Ndmin)-p3)/p4)-1)+(ln(Nreal/Ndmin)-p3));  //ExpLin part
+Imem = Imem + p5/pow(p6 + p7*pow(p8*exp(ln(Nreal/Ndmin)-p9), -p10), 1/p11);     //Generalized logistic function part
+
+I(memristor) <+ Imem;
+
+Rseries = RTiOx+R0*(1+R0*alphaline*pow(I(memristor),2)*Rthline);
+Vseries = I(memristor)*Rseries;
+Rdisc = lvar*1e-9/(Nreal*1e26*zvo*`P_Q*un*A);
+Vdisc = I(memristor)*Rdisc;
+
+
+
+////////////////////////////////////////////////////////
+// Solve ODE 									   //
+////////////////////////////////////////////////////////
+
+//concentration calculation
+Nchange=idt(-trig/(A*lvar*1e-9*`P_Q*zvo)*V(ion,gnd)/1e26,0);
+Nreal=Ninitreal + Nchange;
+V(Nd,gnd)<+Nreal;
+
+
+//I_ion is realised through a voltage source here
+if (((Nreal<Ndiscmin)&(V(AE,OE)>0))|((Nreal>Ndiscmax)&(V(AE,OE)<0)))	// keep concentration Nreal in the borders of Ndiscmin and Ndiscmax
+	begin
+		V(ion,gnd)<+0;
+		trig = 0;
+	end
+else
+	begin
+		cvo = (Nplug+Nreal)/2*1e26;
+		if (V(AE,OE)>0)
+			begin
+				E_ion = (V_m-Vseries)/(lcell*1e-9);
+				Rtheff = Rth0*pow(rdet/rvar,2)*Rtheff_scaling;
+				Flim = 1-pow(Ndiscmin/Nreal,10);
+			end
+		else
+			begin
+				E_ion = Vdisc/(lvar*1e-9);
+				Rtheff = Rth0*pow(rdet/rvar,2);
+				Flim=1-pow(Nreal/Ndiscmax,10);
+			end
+		gamma=zvo*E_ion*a/(`M_PI*dWa);
+		dWamin=dWa*`P_Q*(sqrt(1-pow(gamma,2))-gamma*`M_PI/2+gamma*asin(gamma));
+		dWamax=dWa*`P_Q*(sqrt(1-pow(gamma,2))+gamma*`M_PI/2+gamma*asin(gamma));
+		Treal = Imem * (V_m - Vseries) * Rtheff + T0;
+		V(ion,gnd)<+zvo*`P_Q*cvo*a*nyo*A*(exp(-dWamin/(`P_K*Treal))-exp(-dWamax/(`P_K*Treal)))*Flim;
+	end
+end		
+
+endmodule
