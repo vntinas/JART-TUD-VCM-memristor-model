@@ -3,9 +3,9 @@
 ### Code availability timeline
 - Python: [Available Beta](python/)
 - Verilog-A: [Available Beta](verilog_a/)
-- Matlab: July 15, 2024
-- LTSPICE: July 31, 2024
-- Julia: August 15, 2024
+- Matlab: August 10, 2024
+- LTSPICE: August 20, 2024
+- Julia: August 31, 2024
 
 
 ## Memristor Current Equation
