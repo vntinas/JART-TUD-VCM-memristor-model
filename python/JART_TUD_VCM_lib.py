@@ -184,10 +184,10 @@ class JART_TUD_memristor:
                 p6_0 = p6_0_p + Dp6_0_r_p * d_r
                 p6_1 = p6_1_p
                 
-                p7_0 = p7_0_p + Dp7_0_r_p*d_r + + Dp7_0_r2_p*(d_r**2) + + Dp7_0_l_p*d_l
+                p7_0 = p7_0_p + Dp7_0_r_p*d_r + Dp7_0_r2_p*(d_r**2) + Dp7_0_l_p*d_l
                 p7_1 = p7_1_p
-                Dp7_2_l = Dp7_2_l_p + Dp7_2_l_r_p*d_r + + Dp7_2_l_r2_p*(d_r**2)     #Special case: Dp7_2_l dependency to d_r
-                p7_2 = p7_2_p + Dp7_2_r_p*d_r + + Dp7_2_r2_p*(d_r**2) + + Dp7_2_l*d_l
+                Dp7_2_l = Dp7_2_l_p + Dp7_2_l_r_p*d_r + Dp7_2_l_r2_p*(d_r**2)     #Special case: Dp7_2_l dependency to d_r
+                p7_2 = p7_2_p + Dp7_2_r_p*d_r + Dp7_2_r2_p*(d_r**2) + Dp7_2_l*d_l
                 p7_3 = p7_3_p
 
                 p8_0 = p8_0_p + Dp8_0_l_p*d_l
@@ -197,7 +197,7 @@ class JART_TUD_memristor:
                 p10_1 = p10_1_p
                 p10_2 = p10_2_p
 
-                p11_0 = p11_0_p + Dp10_0_l_p*d_l
+                p11_0 = p11_0_p + Dp11_0_l_p*d_l
                 p11_1 = p11_1_p
                 p11_2 = p11_2_p
                 
@@ -399,10 +399,10 @@ def Imem_pos(V_m, Ndisc, rvar=45e-9, lvar=0.4):
     p6_0 = p6_0_p + Dp6_0_r_p * d_r
     p6_1 = p6_1_p
     
-    p7_0 = p7_0_p + Dp7_0_r_p*d_r + + Dp7_0_r2_p*(d_r**2) + + Dp7_0_l_p*d_l
+    p7_0 = p7_0_p + Dp7_0_r_p*d_r + Dp7_0_r2_p*(d_r**2) + Dp7_0_l_p*d_l
     p7_1 = p7_1_p
-    Dp7_2_l = Dp7_2_l_p + Dp7_2_l_r_p*d_r + + Dp7_2_l_r2_p*(d_r**2)     #Special case: Dp7_2_l dependency to d_r
-    p7_2 = p7_2_p + Dp7_2_r_p*d_r + + Dp7_2_r2_p*(d_r**2) + + Dp7_2_l*d_l
+    Dp7_2_l = Dp7_2_l_p + Dp7_2_l_r_p*d_r + Dp7_2_l_r2_p*(d_r**2)     #Special case: Dp7_2_l dependency to d_r
+    p7_2 = p7_2_p + Dp7_2_r_p*d_r + Dp7_2_r2_p*(d_r**2) + Dp7_2_l*d_l
     p7_3 = p7_3_p
 
     p8_0 = p8_0_p + Dp8_0_l_p*d_l
@@ -412,7 +412,7 @@ def Imem_pos(V_m, Ndisc, rvar=45e-9, lvar=0.4):
     p10_1 = p10_1_p
     p10_2 = p10_2_p
 
-    p11_0 = p11_0_p + Dp10_0_l_p*d_l
+    p11_0 = p11_0_p + Dp11_0_l_p*d_l
     p11_1 = p11_1_p
     p11_2 = p11_2_p
     
