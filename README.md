@@ -3,7 +3,7 @@
 ### Code availability timeline
 - Python: [Available Beta](python/)
 - Verilog-A: [Available Beta](verilog_a/)
-- Matlab: August 10, 2024
+- Matlab: [Available Beta](MATLAB/)
 - LTSPICE: August 20, 2024
 - Julia: August 31, 2024
 
