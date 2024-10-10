@@ -4,8 +4,8 @@
 - Python: [Available Beta](python/)
 - Verilog-A: [Available Beta](verilog_a/)
 - Matlab: [Available Beta](MATLAB/)
-- LTSPICE: August 20, 2024
-- Julia: August 31, 2024
+- LTSPICE: November 20, 2024
+- Julia: November 31, 2024
 
 
 ## Memristor Current Equation
